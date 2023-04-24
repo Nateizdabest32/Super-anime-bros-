@@ -1,0 +1,164 @@
+import pygame
+
+# Set up PyGame
+pygame.init()
+
+# Define some colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+
+# Set up the screen
+WIDTH = 640
+HEIGHT = 480
+SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
+
+# Fill the screen with a black background
+SCREEN.fill(BLACK)
+
+# Create the player
+PLAYER_WIDTH = 30
+PLAYER_HEIGHT = 60
+x = 50
+y = 300
+vel_x = 0
+vel_y = 0
+is_jumping = False
+anim_index = 0
+
+class Player:
+    def __init__(self):
+        self.images = []
+        for i in range(10):
+            self.images.append(pygame.image.load('running_' + str(i) + '.png'))
+
+    def draw(self, screen):
+        screen.blit(self.images[anim_index], (x, y))
+
+    def update(self):
+        pygame.time.Clock().tick(60)
+        if keys[pygame.K_LEFT] and x > vel_x:
+            x -= vel_x
+            anim_index = (anim_index + 1) % len(self.images)
+
+        elif keys[pygame.K_RIGHT] and x < WIDTH - PLAYER_WIDTH:
+             x += vel_x
+             anim_index = (anim_index + 1) % len(self.images)
+
+        elif (is_jumping == False) and (not keys[pygame.K_LEFT] and not keys[pygame.K_RIGHT]):
+            if keys[pygame.K_UP]:
+                is_jumping = True
+                vel_y -= 20
+
+            else:
+                if is_jumping:
+                    vel
+elif is_jumping and (not keys[pygame.K_UP] or not keys[pygame.K_DOWN]):
+            vel_y += 20
+            if vel_y > 140:
+                is_jumping = False
+                vel_y = 140
+
+        elif is_jumping and keys[pygame.K_UP]:
+            is_jumping = False
+            vel_y += 20
+
+        if keys[pygame.K_SPACE]:
+            is_jumping = True
+        else:
+            if is_jumping:
+                vel_y = 0
+
+        y += vel_y
+    x += vel_x
+
+# Set up the camera
+SCREEN.set_caption('Super Anime Bros')
+pygame.display.set_caption("Super Anime Bros")
+
+# Initialize the game loop
+running = True
+while running:
+    # Handle player input
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            # If player hits space, make him jump
+            if event.key == pygame.K_SPACE:
+                if not is_jumping:
+                    is_jumping = True
+                player.vel_y = 300
+            # If player presses arrow keys, move character
+            if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                player.vel_x = -10
+            elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                player.vel_x = 10
+            elif event.key == pygame.K_UP or event.key == pygame.K_w:
+                player.vel_y = -10
+
+    # Move player
+    player.update()
+    # Check for collision
+    if player.x < 0:
+        player
+elif is_jumping and (not keys[pygame.K_UP] or not keys[pygame.K_DOWN]):
+            vel_y += 20
+            if vel_y > 140:
+                is_jumping = False
+                vel_y = 140
+
+        elif is_jumping and keys[pygame.K_UP]:
+            is_jumping = False
+            vel_y += 20
+
+        if keys[pygame.K_SPACE]:
+            is_jumping = True
+        else:
+            if is_jumping:
+                vel_y = 0
+
+        y += vel_y
+    x += vel_x
+
+# Set up the camera
+SCREEN.set_caption('Super Anime Bros')
+pygame.display.set_caption("Super Anime Bros")
+
+# Initialize the game loop
+running = True
+while running:
+    # Handle player input
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            # If player hits space, make him jump
+            if event.key == pygame.K_SPACE:
+                if not is_jumping:
+                    is_jumping = True
+                player.vel_y = 300
+            # If player presses arrow keys, move character
+            if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                player.vel_x = -10
+            elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                player.vel_x = 10
+            elif event.key == pygame.K_UP or event.key == pygame.K_w:
+                player.vel_y = -10
+
+    # Move player
+    player.update()
+    # Check for collision
+    if player.x < 0:
+        player
+    elif player.x + PLAYER_WIDTH > SCREEN.get_width():
+        player.x = SCREEN.get_width() - PLAYER_WIDTH
+    elif player.y < 0:
+        player.y = 0
+    elif player.y + PLAYER_HEIGHT > SCREEN.get_height():
+        player.y = SCREEN.get_height() - PLAYER_HEIGHT
+
+    # Redraw
+    player.draw(SCREEN)
